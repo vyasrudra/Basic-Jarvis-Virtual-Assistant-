@@ -5,6 +5,7 @@ import wikipedia #pip install wikipedia
 import webbrowser
 import os
 import smtplib
+import time
 
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
@@ -75,7 +76,10 @@ if __name__ == "__main__":
 
         elif 'open youtube' in query:
             webbrowser.open("youtube.com")
-
+            
+        elif query in ['hi', 'hello']:
+            speak('Hello sir, how may I help you?')
+            
         elif 'open google' in query:
             webbrowser.open("google.com")
 
@@ -96,7 +100,22 @@ if __name__ == "__main__":
         elif 'open code' in query:
             codePath = "C:\\Users\\Rudra Vyas\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe"
             os.startfile(codePath)
+        
+        elif 'timer' in query or 'stopwatch' in query:
+            speak("For how many minutes?")
+            timer_time = takeCommand()
+            timer_time = timer_time.replace('minutes', '')
+            timer_time = timer_time.replace('minute', '')
+            timer_time = timer_time.replace('for', '')
 
+            timer_time = float(timer_time)
+            timer_time = timer_time * 60
+            speak(f'I will remind you in {timer_time} seconds')
+
+            time.sleep(timer_time)
+            speak('Your time has been finished sir')
+        
+        
         elif 'email to harry' in query:
             try:
                 speak("What should I say?")
@@ -106,4 +125,8 @@ if __name__ == "__main__":
                 speak("Email has been sent!")
             except Exception as e:
                 print(e)
-                speak("Sorry my friend harry bhai. I am not able to send this email") 
+                speak("I am really sorry sir. I am not able to send this email") 
+                
+        elif 'bye' in query:
+            speak('Bye sir, hope you have a great time')
+            break
