@@ -107,3 +107,42 @@ if __name__ == "__main__":
             except Exception as e:
                 print(e)
                 speak("Sorry my friend harry bhai. I am not able to send this email") 
+                
+         elif 'where is' in query:
+            query = query.replace("where is ", "")
+            reply = f"finding location of {query} on maps"
+            print(reply)
+            speak(reply)
+            webbrowser.open("https://www.google.com/maps/place/" + query)    #search for location on Google Maps
+            
+         elif 'restart' in query:
+            reply = "Are you sure sir?"
+            print(reply)
+            speak(reply)
+            ans = takeCommand().lower()
+            if "yes" in ans or 'yeah' in ans:
+                reply = "Restarting the system"
+                print(reply)
+                speak(reply)
+                subprocess.call(["shutdown", "/r"])    #restart the PC
+                
+        elif 'shutdown' in query:
+            reply = "Are you sure sir?"
+            print(reply)
+            speak(reply)
+            ans = takeCommand().lower()
+            if "yes" in ans or 'yeah' in ans:
+                reply = "Shutting down the system"
+                print(reply)
+                speak(reply)
+                subprocess.call(["shutdown", "/p"])    #shutdown the PC
+                
+        elif 'joke' in query:
+            joke_results = pyjokes.get_joke()   # gets a random joke
+            print(joke_results)
+            speak(joke_results)
+            
+        elif 'exit' in query or 'quit' in query:
+            print("Bye Sir!")
+            speak("Bye Sir!")
+            exit()    #close the program
